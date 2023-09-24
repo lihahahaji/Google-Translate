@@ -1,12 +1,19 @@
-const { app, BrowserWindow, globalShortcut, Menu, MenuItem ,screen} = require("electron");
+const {
+	app,
+	BrowserWindow,
+	globalShortcut,
+	Menu,
+	MenuItem,
+	screen,
+} = require("electron");
 // app，它着您应用程序的事件生命周期。
 // BrowserWindow，它负责创建和管理应用窗口。
 
 // createWindow 函数用于创建一个应用窗口
 const createWindow = () => {
 	const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-	const windowWidth = 400
-	const x = width - windowWidth
+	const windowWidth = 400;
+	const x = width - windowWidth;
 	const win = new BrowserWindow({
 		// 设置宽高
 		width: windowWidth,
@@ -17,7 +24,11 @@ const createWindow = () => {
 		// 失去焦点的时候隐藏窗口
 		// hiddenInMissionControl:true,
 		vibrancy: "sheet",
-		
+		show: false,
+	});
+
+	win.once("ready-to-show", () => {
+		win.show();
 	});
 
 	const menu = new Menu();
@@ -27,24 +38,21 @@ const createWindow = () => {
 			submenu: [
 				{
 					role: "Quit",
-					accelerator:
-						process.platform === "darwin" ? "Cmd+Q" : "Alt+Shift+Q",
+					accelerator: process.platform === "darwin" ? "Cmd+Q" : "Alt+Shift+Q",
 					click: () => {
 						console.log("Electron rocks!");
 					},
 				},
 				{
 					role: "Hide",
-					accelerator:
-						process.platform === "darwin" ? "Cmd+W" : "Alt+Shift+W",
+					accelerator: process.platform === "darwin" ? "Cmd+W" : "Alt+Shift+W",
 					click: () => {
 						console.log("Electron rocks!");
 					},
 				},
 				{
 					role: "Zoom",
-					accelerator:
-						process.platform === "darwin" ? "Cmd+F" : "Alt+Shift+F",
+					accelerator: process.platform === "darwin" ? "Cmd+F" : "Alt+Shift+F",
 					click: () => {
 						console.log("Electron rocks!");
 					},
@@ -77,8 +85,7 @@ const createWindow = () => {
 			],
 		})
 	);
-	Menu.setApplicationMenu(menu)
-
+	Menu.setApplicationMenu(menu);
 
 	// 加载网址
 	win.loadURL("https://translate.google.com");
