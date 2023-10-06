@@ -82,6 +82,11 @@ const createWindow = () => {
 					accelerator: "Cmd+Shift+Z",
 					click: () => {},
 				},
+				{
+					role: "reload",
+					accelerator: "Cmd+R",
+					click: () => {},
+				},
 			],
 		})
 	);
